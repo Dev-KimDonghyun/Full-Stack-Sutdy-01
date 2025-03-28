@@ -1,6 +1,9 @@
 import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './../index.css';
+
+import { HiMenu, HiX } from "react-icons/hi";
 
 const menuItems = [
     { path: "/", label: "홈" },
@@ -9,7 +12,7 @@ const menuItems = [
     { path: "/board", label: "업무 게시판" },
     { path: "/our-services", label: "제공 기술" },
     { path: "/contact", label: "문의하기" }
-  ];
+];
   
 const MenuItem = ({ path, label, onClick }) => (
     <li>
@@ -27,12 +30,17 @@ const NavBar = () => {
 
     console.log('랜더링 성공');
 
+    const [isOpen, setIsOpen ] = useState(false); // isOpen은 단순한 변수이고, setIsOpen은 isOpen의 상태 설정 함수임
+    const [ language, setLanguage ] = useState('ko'); // 위와 마찬가지
+
+    const toggleMenu = () => setIsOpen(!isOpen); // toggleMenu 함수가 호출되면 setIsOpen을 통해 isOpen의 boolean 상태를 반대로 바꿈
+
     return (
         <nav className='fixed top-0 left-0 w-full bg-white text-black p-4 shadow-lg z-50'>
             <div className='container mx-auto flex justify-between items-center'>
                 <h1 className='text-xl font-bold lg:ml-12 lg:mr-8'><a href='/'>Dev-Kim Study</a></h1>
 
-                <div className='lg:flex flex-1 justify-center'>
+                <div className='hidden lg:flex flex-1 justify-center'>
                     <ul className='flex gap-8 text-lg'>
 
                         {menuItems.map((item) => (
@@ -40,6 +48,36 @@ const NavBar = () => {
                         ))}
                         
                     </ul>
+                </div>
+
+                <select value={language} onChange={(e) => setLanguage(e.target.value)} className='hidden lg:block px-3 ml-8 border rounded-md bg-white hover:border-blue-500 transition duration-300'>
+                    <option value='ko'>한국어</option>
+                    <option value='en'>English</option>
+                </select>
+
+
+                <button className='lg:hidden text-2xl' onClick={toggleMenu} aria-label='메뉴'>
+                    {isOpen ? <HiX /> : <HiMenu />}
+                </button>
+            </div>
+            <div className={`fixed top-0 right-0 h-full w-64 bg-white text-black transform transition-transform duration-300 ease-in-out z-50 ${isOpen ? "translate-x-0" : "translate-x-full"} lg:hidden`}>
+                
+                <div className='p-4'>
+                    <button className='text-2xl mb-8 float-right' onClick={toggleMenu} aria-label='닫기'>
+                        <HiX />
+                    </button>
+                    <ul className='clear-both space-y-4 pt-8 txet-lg'>
+                        {menuItems.map((item) => (
+                            <MenuItem key={item.path} {...item} onClick={() => {
+                                setIsOpen(false);
+                                window.scrollTo({ top: 0, behavior: 'smooth'})
+                            }} />
+                        ))}
+                    </ul>
+                    <select value={language} onChange={(e) => setLanguage(e.target.value)} className='mt-6 w-full px-3 py-1 border rounded-mg bg-white hover:border-blue-500 transition duration-300'>
+                        <option value='ko'>한국어</option>
+                        <option value='en'>English</option>
+                    </select>
                 </div>
             </div>
         </nav>
@@ -56,5 +94,16 @@ const NavBar = () => {
 // 그냥 path={item.path} label={item.label} 같이 써도 무방하다는 말임
 
 // 진짜 큰 틀로 설명하자면 menuItems에서 값을 정의해 준 다음에 MenuItem에 집어넣는 코드인거임
+
+// (e) => setLanguage(e.target.value)는 그냥 (e)로 이벤트를 감지하고 실행시키는 간단한 함수
+
+// {menuItems.map((item) => (
+    // <MenuItem key={item.path} {...item} onClick={() => {
+        // setIsOpen(false);
+        // window.scrollTo({ top: 0, behavior: 'smooth'})
+    // }} />
+// ))} 이건 그냥 단순하게 생각해서 onClick이 감지되면 isOpen을 false로 정하고 우측 메뉴창을 화면 밖으로 빼는거임
+
+
 
 export default NavBar;

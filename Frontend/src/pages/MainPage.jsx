@@ -1,8 +1,16 @@
 import React from 'react'
 
+import MainPageHero from './MainPageHero';
+import MainPageForum from './MainPageForum';
+import MainPageContact from './MainPageContact';
+
 export const MainPage = () => {
   return (
-    <div className='py-32'>MainPage</div>
+    <div>
+      <MainPageHero />
+      <MainPageForum />
+      <MainPageContact />
+    </div>
   )
 }
 

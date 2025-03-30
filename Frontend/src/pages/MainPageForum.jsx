@@ -43,7 +43,7 @@ const MainPageForum = () => {
       views: 30,
       fileUrl: ["file4"],
       createdAt: "2023-01-20",
-    },
+    }
   ];
 
   return (
@@ -55,7 +55,7 @@ const MainPageForum = () => {
           </h2>
         </div>
 
-        <div className='flex justify-end mb-4'>
+        <div className='flex justify-end mb-8'>
           <Link
             to='/board'
             className='px-5 py-2 bg-white text-gray-900 rounded-lg hover:bg-gray-100 transition-colors duration-300 flex items-center gap-2 border border-gray-200'
@@ -104,7 +104,7 @@ const MainPageForum = () => {
               </div>
             </div>
             ))
-          )};
+          )}
         </div>
       </div>
     </div>

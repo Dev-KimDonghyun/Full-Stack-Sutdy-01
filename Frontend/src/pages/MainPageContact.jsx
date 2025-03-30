@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const MainPageContact = () => {
   return (
-    <div className='bg-white py-20 lg:py-48'>
+    <div className='bg-white py-20 lg:py-48 mt-4'>
       <div className='container mx-auto px-4 max-w-6xl'>
         <div className='text-center mb-12'>
           <h2 className='text-4xl lg:text-5xl font-bold text-gray-800 mb-4'>

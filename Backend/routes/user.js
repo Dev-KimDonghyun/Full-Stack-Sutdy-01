@@ -17,8 +17,17 @@ router.post('signUp', async ( res, req ) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // const user (하다가 중단함. Ch4-4. 관리자 계정 생성하기 6분 37초)
-    } catch (error) {
+        const user = new User ({
+            username,
+            password: hashedPassword,
+        })
 
+        await user.save();
+        res.status(201).json({ message: '회원가입이 완료되었습니다.'})
+    } catch (error) {
+        res.status(500).json({ message: '서버 오류가 발생하였습니다.'});
+        console.log(error);
     }
-})
+});
+
+module.exports = router;

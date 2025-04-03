@@ -4,7 +4,7 @@ const express = require('express'); // Express Default Setting
 const app = express(); // Express Default Setting
 const PORT = 3000; // Express Default Setting
 
-const userRoutes = require('./routes/user.js');
+const userRoutes = require('./routes/user.js'); // Ch4-4.괸리자 계정 생성하기 13분 52초
 
 app.use('/api/auth', userRoutes);
 

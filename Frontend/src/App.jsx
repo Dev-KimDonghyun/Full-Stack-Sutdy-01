@@ -13,6 +13,8 @@ import Board from './pages/Board';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
 
+import AdminLogin from './pages/admin/adminLogin';
+
 function Layout () {
   return (
     <>
@@ -53,7 +55,11 @@ const router = createBrowserRouter([
         element: <Contact />
       },
     ]
-  }
+  },
+  {
+    path: '/admin',
+    element: <AdminLogin />, // 맨 앞 글자는 대문자로 해야 되는듯. 소문자로 설정하니까 콘솔에서 에러 뿜음
+  },
 ]);
 
 // index: true는 부모 라우트의 기본 경로로 접속했을 때 보여줄 페이지를 지정하는 역할을 함

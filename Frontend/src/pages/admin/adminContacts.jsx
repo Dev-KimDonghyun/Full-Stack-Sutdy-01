@@ -1,9 +1,9 @@
 import React from 'react'
 
-const adminContacts = () => {
+const AdminContacts = () => {
   return (
     <div>adminContacts</div>
   )
 }
 
-export default adminContacts;
+export default AdminContacts;

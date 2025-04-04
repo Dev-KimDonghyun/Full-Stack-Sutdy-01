@@ -1,9 +1,9 @@
 import React from 'react'
 
-const adminEditPosts = () => {
+const AdminEditPosts = () => {
   return (
     <div>adminEditPosts</div>
   )
 }
 
-export default adminEditPosts;
+export default AdminEditPosts;

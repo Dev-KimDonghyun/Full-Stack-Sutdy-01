@@ -1,14 +1,53 @@
 import React from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
-const adminLogin = () => {
+const AdminLogin = () => {
 
     const [ formData, setFormData ] = useState({
         username: '',
         password: '',
     });
 
-    const [ error, setError ] = useState('시발새끼야');
+    const [ error, setError ] = useState('');
+
+    const navigate = useNavigate(); // 그냥 리액트 라우터 기능임
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value,
+        })
+
+        console.log(formData);
+        console.log
+    } // ...는 스프레드 연산자라 부름. 기존 객체의 내용을 유지하며 값을 추가하는 역할을 함.
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3000/api/auth/login', formData, {
+                withCredentials: true,
+            });
+            if (response.data.user) {
+                navigate('/admin/posts');
+            }
+        } catch (error) {
+            const errorMessage = error.response.data.message || '로그인에 실패하였습니다.';
+            const remainingAttempts = error.response.data.remainingAttempts;
+
+            setError({
+                messgae: errorMessage,
+                remainingAttempts: remainingAttempts
+            });
+        }
+    };
+
+    // 별거 없음 그냥 로그인 로직임
+    // await으로 비동기 처리하고 axios.post로 API링크를 통해 formData를 보내는 작업을 수행, 그리고 오류처리 하는 코드임 ㅇㅇ
+    // [e.target.name]: e.target.value 이건 input 태그에 name 속성이랑 value 속성 연결시키는거임
+
 
   return (
 
@@ -19,7 +58,7 @@ const adminLogin = () => {
                 <p className='mt-2 text-center text-lg text-gray-600'>관리자 전용 페이지입니다.</p>
             </div>
 
-            <form className='mt-8 space-y-6'>
+            <form className='mt-8 space-y-6' onSubmit={handleSubmit}>
                 <div className='space-y-4'>
                     <div>
                         <label htmlFor='username' className='block text-xm font-medium text-gray-700'>
@@ -30,6 +69,8 @@ const adminLogin = () => {
                         name='username' 
                         type='text' 
                         required 
+                        value={formData.username}
+                        onChange={handleChange}
                         className='mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-bue-500 transition-colors duration-300'
                         placeholder='관리자 아아디'
                         />
@@ -42,7 +83,9 @@ const adminLogin = () => {
                         id='password' 
                         name='password' 
                         type='password' 
-                        required 
+                        required
+                        value={formData.password}
+                        onChange={handleChange}
                         className='mt-1 block w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-bue-500 transition-colors duration-300'
                         placeholder='관리자 비밀번호'
                         />
@@ -69,4 +112,4 @@ const adminLogin = () => {
   )
 }
 
-export default adminLogin;
+export default AdminLogin;

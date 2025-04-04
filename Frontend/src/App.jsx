@@ -13,7 +13,7 @@ import Board from './pages/Board';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
 
-import AdminLogin from './pages/admin/adminLogin';
+import AdminLogin from './pages/admin/AdminLogin';
 
 function Layout () {
   return (
